@@ -1,2 +1,3 @@
 # vimStuff
-.vimrc file and vim setup script
+- .vimrc file and vim setup script
+- run ./vimrcScript.sh
