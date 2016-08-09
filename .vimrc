@@ -33,6 +33,7 @@ set textwidth=80
 let &runtimepath.=',$HOME/.vim/bundle/Vundle.vim'
 call vundle#begin()
 
+Plugin 'pangloss/vim-javascript'
 Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-scripts/L9'
