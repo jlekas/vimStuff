@@ -1,18 +1,16 @@
-"syntax highlighting on
+set laststatus=2
+au VimEnter * NERDTree
 syntax on
-"show line numbers
 set number
 "Changing jk to esc
 inoremap jk <ESC>
-"vim detect file types and load subsequent file types
+
 filetype off
 filetype plugin on
 filetype indent on
 
-"reload files changed out of vim
 set autoread
 
-"utf 8 is encoding
 set encoding=utf-8
 set fileencoding=utf-8
 
@@ -34,8 +32,14 @@ set textwidth=80
 let &runtimepath.=',$HOME/.vim/bundle/Vundle.vim'
 call vundle#begin()
 
+Plugin 'valloric/youcompleteme'
+Plugin 'godlygeek/tabular'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'cohlin/vim-colorschemes'
+Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'vim-scripts/L9'
 Plugin 'itchyny/lightline.vim'      
 Plugin 'tpope/vim-surround'         
@@ -49,16 +53,29 @@ Plugin 'derekwyatt/vim-scala'
 Plugin 'hail2u/vim-css3-syntax'     
 Plugin 'digitaltoad/vim-jade'
 Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'Raimondi/delimitMate'
 "end plugin definition
 call vundle#end() 
 
+set ts=2 sw=2 et
+let g:indent_guide_start_level=2
+
+"colorscheme distinguished
+set t_Co=256
+
+"airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_theme='darcula'
+
+"NerdTree
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
 let g:syntastic_javascript_checkers = ['jsxhint']
 let g:syntastic_javascript_jsxhint_exec = 'jsx-jshint-wrapper'
 let g:lightline = {
-      \ 'colorscheme': 'landscape',
       \ 'component': {
       \   'readonly': '%{&readonly?"⭤":""}',
       \ },
@@ -76,8 +93,6 @@ endfunction
 
 set colorcolumn=80
 
-"colorscheme distinguished
-set t_Co=256
 "Plugin 'Raimondi/delimitMate'
 "set guifont=Sauce\ Code\ Powerline:h14
 "" Make the background easier to see in Gui Vim
@@ -162,4 +177,17 @@ fun s:CloseTag()
 	endif
 	return ''
 endf
-" vim:noet:sw=4:ts=4:ft=vim
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
