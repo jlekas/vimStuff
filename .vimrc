@@ -1,6 +1,7 @@
 set laststatus=2
-au VimEnter * NERDTree
+"au VimEnter * NERDTree
 syntax on
+"shows numbers on side
 set number
 "Changing jk to esc
 inoremap jk <ESC>
@@ -9,6 +10,8 @@ filetype off
 filetype plugin on
 filetype indent on
 
+"if you want to stop text wrap at 80 char
+"set textwidth=0 wrapmargin=0
 set autoread
 
 set encoding=utf-8
@@ -28,14 +31,16 @@ set smarttab
 "set 80 cols
 set textwidth=80
 
+"fix the copy paste issue in vim
+
 "vundle
 let &runtimepath.=',$HOME/.vim/bundle/Vundle.vim'
 call vundle#begin()
 
-Plugin 'valloric/youcompleteme'
 Plugin 'godlygeek/tabular'
+Plugin 'NLKNguyen/copy-cut-paste.vim'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'cohlin/vim-colorschemes'
+Plugin 'flazz/vim-colorschemes'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
@@ -65,11 +70,14 @@ let g:indent_guide_start_level=2
 "colorscheme distinguished
 set t_Co=256
 
+"change colorscheme
+colorscheme candyman
+
 "airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline_theme='darcula'
+let g:airline_theme='wombat'
 
 "NerdTree
 let g:jsx_ext_required = 0 " Allow JSX in normal JS files
@@ -112,71 +120,6 @@ set showmatch " highlight matching [{()}]
 set foldenable " enable folding
 set noswapfile
 
-if exists('b:mapped_auto_closetag') || &cp | finish | endif
-let b:mapped_auto_closetag = 1
-
-ino <buffer> <silent> < <><left>
-ino <buffer> <silent> > <c-r>=<SID>CloseTag()<cr>
-ino <buffer> <expr> <cr> <SID>Return()
-
-if exists('s:did_auto_closetag') | finish | endif
-let s:did_auto_closetag = 1
-
-" Gets the current HTML tag by the cursor.
-fun s:GetCurrentTag()
-	return matchstr(matchstr(getline('.'),
-						\ '<\zs\(\w\|=\| \|''\|"\)*>\%'.col('.').'c'), '^\a*')
-endf
-
-" Cleanly return after autocompleting an html/xml tag.
-fun s:Return()
-	let tag = s:GetCurrentTag()
-	return tag != '' && match(getline('.'), '</'.tag.'>') > -1 ?
-				\ "\<cr>\<cr>\<up>" : "\<cr>"
-endf
-
-fun s:InComment()
-	return stridx(synIDattr(synID(line('.'), col('.')-1, 0), 'name'), 'omment') != -1
-endf
-
-" Counts occurance of needle in page, when not in a comment.
-fun s:CountInPage(needle)
-	let pos = [line('.'), col('.')]
-	call cursor(1, 1)
-	let counter = search(a:needle, 'Wc')
-	while search(a:needle, 'W')
-		if !s:InComment() | let counter += 1 | endif
-	endw
-	call cursor(pos)
-	return counter
-endf
-
-" Returns whether a closing tag has already been inserted.
-fun s:ClosingTag(tag)
-	return s:CountInPage('\c<'.a:tag.'.\{-}>') <= s:CountInPage('\c</'.a:tag.'>')
-endf
-
-" Automatically inserts closing tag after starting tag is typed
-fun s:CloseTag()
-	let line = getline('.')
-	let col = col('.')
-	if line[col-1] != '>' | return '>' | endif
-	let col += 1
-	call cursor(0, col)
-	" Don't autocomplete next to a word or another tag or if inside comment
-	if line[col] !~ '\w\|<\|>' && !s:InComment()
-		let tag = s:GetCurrentTag()
-		" Insert closing tag if tag is not self-closing and has not already
-		" been closed
-		if tag != '' && tag !~ '\vimg|input|link|meta|br|hr|area|base|param|dd|dt'
-					\ && !s:ClosingTag(tag)
-			let line = substitute(line, '\%'.col.'c', '</'.escape(tag, '/').'>', '')
-			call setline('.', line)
-			call cursor(0, col)
-		endif
-	endif
-	return ''
-endf
 
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
