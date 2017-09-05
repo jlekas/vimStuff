@@ -82,5 +82,20 @@ export PATH=/home/jake/apps/activator/bin:$PATH
 # Example aliases
 alias cmu="ssh -l jlekas linux.andrew.cmu.edu"
 alias open="gnome-open"
+alias python='/usr/local/bin/Python-2.7.13/python'
+alias workqa="ssh -i ~/Work/mavenadmin.pem ubuntu@ec2-34-228-157-9.compute-1.amazonaws.com"
+alias workqa2="ssh -i ~/Work/mavenadmin.pem ubuntu@ec2-54-226-175-67.compute-1.amazonaws.com"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+alias test-dev="reset;npm run test-dev"
+alias test="reset;npm test"
+alias orchid-server='ssh -Y pi@192.168.1.163'
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /home/jake/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /home/jake/.zsh/z/z.sh
+alias sl='ls'

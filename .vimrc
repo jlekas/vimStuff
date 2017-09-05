@@ -1,17 +1,19 @@
 set laststatus=2
-"au VimEnter * NERDTree
+set nocompatible
+" au VimEnter * NERDTree
 syntax on
-"shows numbers on side
+" shows numbers on side
 set number
-"Changing jk to esc
+" Changing jk to esc
 inoremap jk <ESC>
 
+set completeopt-=preview
 filetype off
 filetype plugin on
 filetype indent on
 
-"if you want to stop text wrap at 80 char
-"set textwidth=0 wrapmargin=0
+" if you want to stop text wrap at 80 char
+set textwidth=0 wrapmargin=0
 set autoread
 
 set encoding=utf-8
@@ -27,9 +29,10 @@ set smartindent
 set shiftwidth=2
 set softtabstop=2
 set smarttab
+set tabstop=2
 
 "set 80 cols
-set textwidth=80
+"set textwidth=80
 
 "fix the copy paste issue in vim
 
@@ -37,6 +40,8 @@ set textwidth=80
 let &runtimepath.=',$HOME/.vim/bundle/Vundle.vim'
 call vundle#begin()
 
+Plugin 'sbdchd/neoformat'
+Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'godlygeek/tabular'
 Plugin 'NLKNguyen/copy-cut-paste.vim'
 Plugin 'airblade/vim-gitgutter'
@@ -46,27 +51,34 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'vim-scripts/L9'
-Plugin 'itchyny/lightline.vim'      
-Plugin 'tpope/vim-surround'         
+Plugin 'itchyny/lightline.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'Valloric/YouCompleteMe'
 " -- Web Development
-Plugin 'mattn/emmet-vim'            
+Plugin 'mattn/emmet-vim'
 Plugin 'vim-javascript'
 Plugin 'mxw/vim-jsx'
-Plugin 'groenewege/vim-less'        
-Plugin 'skammer/vim-css-color'      
+Plugin 'groenewege/vim-less'
+Plugin 'skammer/vim-css-color'
 Plugin 'derekwyatt/vim-scala'
-Plugin 'hail2u/vim-css3-syntax'     
+Plugin 'hail2u/vim-css3-syntax'
 Plugin 'digitaltoad/vim-jade'
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'Raimondi/delimitMate'
 "end plugin definition
-call vundle#end() 
+call vundle#end()
 
 set ts=2 sw=2 et
 let g:indent_guide_start_level=2
 
+"prettier stuff with neoformat plugin
+"autocmd BufWritePre,TextChanged,InsertLeave *.js Prettier
+
+"vim-less
+autocmd BufNewFile,BufRead *.less set filetype=less
+autocmd FileType less set omnifunc=csscomplete#CompleteCSS
 "colorscheme distinguished
 set t_Co=256
 
@@ -120,7 +132,8 @@ set showmatch " highlight matching [{()}]
 set foldenable " enable folding
 set noswapfile
 
-
+"whitespace stuff
+autocmd BufEnter * EnableStripWhitespaceOnSave
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 let g:NERDTreeIndicatorMapCustom = {
@@ -134,3 +147,5 @@ let g:NERDTreeIndicatorMapCustom = {
     \ "Clean"     : "✔︎",
     \ "Unknown"   : "?"
     \ }
+
+au FileType python setl sw=2 sts=2 ts=2 et
