@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/jake/.oh-my-zsh
+export ZSH=/home/jake/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -74,17 +74,23 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 export PATH=/home/jake/apps/activator/bin:$PATH
+export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:bin/java::")
+export HADOOP_HOME=/usr/local/hadoop
+export HBASE_HOME=/usr/local/hbase
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HBASE_HOME/bin:$JAVA_HOME
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
+alias shark="ssh jlekas@shark.ics.cs.cmu.edu"
 alias cmu="ssh -l jlekas linux.andrew.cmu.edu"
 alias open="gnome-open"
-alias python='/usr/local/bin/Python-2.7.13/python'
-alias workqa="ssh -i ~/Work/mavenadmin.pem ubuntu@ec2-34-228-157-9.compute-1.amazonaws.com"
-alias workqa2="ssh -i ~/Work/mavenadmin.pem ubuntu@ec2-54-226-175-67.compute-1.amazonaws.com"
+alias python='/usr/bin/python3'
+#ls with size of megabyte
+alias ls-mb='ls -l --block-size=M'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
@@ -94,8 +100,12 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 alias test-dev="reset;npm run test-dev"
 alias test="reset;npm test"
-alias orchid-server='ssh -Y pi@192.168.1.163'
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /home/jake/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /home/jake/.zsh/z/z.sh
 alias sl='ls'
+
+alias count='ls -1 | wc -l'
+
+export EDITOR=/usr/bin/vim
+export VISUAL=/usr/bin/code
