@@ -45,11 +45,6 @@ COMPLETION_WAITING_DOTS="true"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git scala autojump docker git-extras git_remote_branch node npm python sbt ssh-agent postgres)
 
 # User configuration
 
@@ -57,6 +52,12 @@ plugins=(git scala autojump docker git-extras git_remote_branch node npm python 
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git autojump docker golang git-extras git-flow git-remote-branch node nvm perl themes vscode npm python sbt ssh-agent postgres z)
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -85,8 +86,6 @@ export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$HBASE_HOME/bin:$JAVA_HOME
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-alias shark="ssh jlekas@shark.ics.cs.cmu.edu"
-alias cmu="ssh -l jlekas linux.andrew.cmu.edu"
 alias open="gnome-open"
 alias python='/usr/bin/python3'
 #ls with size of megabyte
@@ -102,10 +101,11 @@ alias test-dev="reset;npm run test-dev"
 alias test="reset;npm test"
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /home/jake/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /home/jake/.zsh/z/z.sh
+#source /home/jake/.zsh/z/z.sh
 alias sl='ls'
 
 alias count='ls -1 | wc -l'
 
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/code
+source /home/jake/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
